@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Historia de Amor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        html {
+            overflow: hidden;
+        }
+
+        .viewport {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: none;
+        }
+
+        .viewport.active {
+            display: block;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            padding: 40px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .container.active {
+            animation: autoScroll 120s linear forwards;
+        }
+
+        @keyframes autoScroll {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(calc(-100% + 100vh));
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .play-button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            gap: 30px;
+        }
+
+        .play-button-container.hidden {
+            display: none;
+        }
+
+        .intro-image {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 15px 60px rgba(0,0,0,0.4);
+            opacity: 0;
+            transform: scale(0.5) rotate(-10deg);
+            animation: introImageEntrance 2s ease forwards;
+        }
+
+        @keyframes introImageEntrance {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg);
+            }
+            60% {
+                transform: scale(1.1) rotate(5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .intro-image {
+                width: 280px;
+                height: 280px;
+            }
+        }
+
+        .play-button {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #764ba2;
+            font-weight: bold;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .intro-text {
+            color: white;
+            font-size: 32px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-style: italic;
+        }
+
+        .subtitle-container {
+            text-align: center;
+            margin-top: -40px;
+            margin-bottom: 50px;
+        }
+
+        .names {
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            font-style: italic;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #fff, #f8f8ff, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .wedding-date {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            padding: 10px 30px;
+            border: 2px solid rgba(255,255,255,0.6);
+            border-radius: 50px;
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            letter-spacing: 3px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 48px;
+            margin-bottom: 60px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .timeline-item {
+            margin-bottom: 80px;
+            position: relative;
+            opacity: 0;
+            animation: slideIn 1.5s ease forwards;
+        }
+
+        /* 2 minutos = 120 segundos / 12 fotos = 10 segundos por foto */
+        .timeline-item:nth-child(1) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(2) { animation-delay: 10.5s; }
+        .timeline-item:nth-child(3) { animation-delay: 20.5s; }
+        .timeline-item:nth-child(4) { animation-delay: 30.5s; }
+        .timeline-item:nth-child(5) { animation-delay: 40.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 50.5s; }
+        .timeline-item:nth-child(7) { animation-delay: 60.5s; }
+        .timeline-item:nth-child(8) { animation-delay: 70.5s; }
+        .timeline-item:nth-child(9) { animation-delay: 80.5s; }
+        .timeline-item:nth-child(10) { animation-delay: 90.5s; }
+        .timeline-item:nth-child(11) { animation-delay: 100.5s; }
+        .timeline-item:nth-child(12) { animation-delay: 110.5s; }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item:nth-child(odd) .content {
+            margin-right: 55%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .content {
+            margin-left: 55%;
+            text-align: left;
+        }
+
+        .content {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: scale(0.8) rotate(-5deg);
+            animation: imageEntrance 1s ease forwards;
+        }
+
+        .timeline-item:nth-child(1) .card-image { animation-delay: 1s; }
+        .timeline-item:nth-child(2) .card-image { animation-delay: 11s; }
+        .timeline-item:nth-child(3) .card-image { animation-delay: 21s; }
+        .timeline-item:nth-child(4) .card-image { animation-delay: 31s; }
+        .timeline-item:nth-child(5) .card-image { animation-delay: 41s; }
+        .timeline-item:nth-child(6) .card-image { animation-delay: 51s; }
+        .timeline-item:nth-child(7) .card-image { animation-delay: 61s; }
+        .timeline-item:nth-child(8) .card-image { animation-delay: 71s; }
+        .timeline-item:nth-child(9) .card-image { animation-delay: 81s; }
+        .timeline-item:nth-child(10) .card-image { animation-delay: 91s; }
+        .timeline-item:nth-child(11) .card-image { animation-delay: 101s; }
+        .timeline-item:nth-child(12) .card-image { animation-delay: 111s; }
+
+        @keyframes imageEntrance {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) rotate(-5deg);
+            }
+            60% {
+                transform: scale(1.05) rotate(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .year {
+            font-size: 36px;
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+
+        .event {
+            font-size: 22px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .heart {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .timeline-item:nth-child(odd) .heart {
+            top: 30px;
+        }
+
+        .timeline-item:nth-child(even) .heart {
+            top: 30px;
+        }
+
+        .final-message {
+            text-align: center;
+            background: rgba(255,255,255,0.95);
+            padding: 50px;
+            border-radius: 20px;
+            margin-top: 80px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            opacity: 0;
+            animation: slideIn 1s ease forwards 120s;
+        }
+
+        .final-message h2 {
+            color: #764ba2;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .final-message p {
+            color: #333;
+            font-size: 24px;
+            line-height: 1.8;
+        }
+
+        .hearts-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 10s infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 32px; }
+            .intro-text { font-size: 24px; }
+            .timeline::before { left: 30px; }
+            .timeline-item:nth-child(odd) .content,
+            .timeline-item:nth-child(even) .content {
+                margin-left: 80px;
+                margin-right: 0;
+                text-align: left;
+            }
+            .heart { left: 30px; }
+            .year { font-size: 28px; }
+            .event { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-animation" id="heartsContainer"></div>
+    
+    <div class="play-button-container" id="playContainer">
+        <img src="assets/INICIO BODA.jpg" alt="Nuestra foto" class="intro-image">
+        <div class="intro-text">Presiona play para comenzar nuestra historia...</div>
+        <button class="play-button" id="playButton">
+            ▶ PLAY
+        </button>
+    </div>
+
+    <div class="viewport" id="viewport">
+        <div class="container" id="content">
+        <h1>💕 Nuestra Historia de Amor 💕</h1>
+        <div class="subtitle-container">
+            <div class="names">Joaquín & Alicia</div>
+            <div class="wedding-date">💍 02 - 12 - 2017 💍</div>
+        </div>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="heart">❤️</div>
+                <div class="content">
+                    <img src="assets/ASAM 1.jpg" alt="Nos conocimos" class="card-image">
+                    <div class="year">2014</div>
+                    <div class="event">Nos conocimos... y todo comenzó ✨</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="heart">✨</div>
+                <div class="content">
+                    <img src="assets/ASAM 2.jpg" alt="Momentos 2014" class="card-image">
+                    <div class="event">Los primeros momentos juntos</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="heart">💫</div>
+                <div class="content">
+                    <img src="assets/novios 10.jpg" alt="Recuerdos 2014" class="card-image">
+                    <div class="event">Cada día más cerca</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="heart">💑</div>
+                <div class="content">
+                    <img src="assets/novios 2.jpg" alt="Novios" class="card-image">
+                    <div class="year">2016</div>
+                    <div class="event">Nos pusimos de novios 💘<br>Decidimos caminar juntos</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="heart">💕</div>
+                <div class="content">
+                    <img src="assets/novios 8.jpg" alt="Momentos 2016" class="card-image">
+                    <div class="event">Nuestros momentos de novios</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="heart">💝</div>
+                <div class="content">
+                    <img src="assets/novios 1.jpg" alt="Recuerdos 2016" class="card-image">
+                    <div class="event">Construyendo nuestro amor</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="heart">💍</div>
+                <div class="content">
+                    <img src="assets/novios 11.jpg" alt="Boda" class="card-image">
+                    <div class="year">2 de Diciembre 2017</div>
+                    <div class="event">¡Nos casamos! 💒<br>El mejor día de nuestras vidas</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="heart">👰</div>
+                <div class="content">
+                    <img src="assets/ATENTO.jpg" alt="Momentos boda" class="card-image">
+                    <div class="event">Un día mágico e inolvidable</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="heart">🎊</div>
+                <div class="content">
+                    <img src="assets/CASADO.jpg" alt="Celebración" class="card-image">
+                    <div class="event">Celebrando nuestro amor eterno</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="heart">👶</div>
+                <div class="content">
+                    <img src="assets/REGALO.jpg" alt="Familia" class="card-image">
+                    <div class="year">2020</div>
+                    <div class="event">Se completó la familia 👨‍👩‍👧<br>La mayor bendición</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="heart">🍼</div>
+                <div class="content">
+                    <img src="assets/FAMILIA.jpg" alt="Momentos familia" class="card-image">
+                    <div class="event">Nuestra nueva vida como familia</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="heart">👨‍👩‍👧</div>
+                <div class="content">
+                    <img src="assets/famila.jpg" alt="Felicidad familiar" class="card-image">
+                    <div class="event">Creando recuerdos inolvidables</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="final-message">
+            <h2>Gracias por un año más de amor y felicidad</h2>
+            <p>
+                Cada día a tu lado es un regalo 🎁<br><br>
+                Te amo hoy y siempre 💕<br><br>
+                Por muchos años más juntos ❤️
+            </p>
+        </div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="assets/Odioso.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <script>
+        const playButton = document.getElementById('playButton');
+        const playContainer = document.getElementById('playContainer');
+        const viewport = document.getElementById('viewport');
+        const content = document.getElementById('content');
+        const heartsContainer = document.getElementById('heartsContainer');
+        const bgMusic = document.getElementById('bgMusic');
+
+        // Crear corazones flotantes
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 5 + 8) + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 15000);
+        }
+
+        // Crear corazones cada cierto tiempo
+        setInterval(createFloatingHeart, 800);
+
+        playButton.addEventListener('click', () => {
+            playContainer.classList.add('hidden');
+            viewport.classList.add('active');
+            content.classList.add('active');
+
+            // Ocultar scrollbar completamente
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+            
+            // NO usar window.scrollTo, usar solo animación CSS
+            // El contenido se mueve dentro del viewport sin scroll
+
+            // Reproducir música de fondo
+            bgMusic.volume = 0.5;
+            bgMusic.play()
+                .then(() => {
+                    console.log('Música reproduciéndose correctamente');
+                })
+                .catch(error => {
+                    console.error('Error al reproducir la música:', error);
+                    alert('No se pudo reproducir la música. Verifica que el archivo assets/Odioso.mp3 existe.');
+                });
+        });
+    </script>
+</body>
+</html>
