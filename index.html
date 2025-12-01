@@ -69,7 +69,7 @@
             0% {
                 transform: translateY(0);
             }
-            85% {
+            90% {
                 transform: translateY(calc(-100% + 100vh + 200px));
             }
             100% {
@@ -230,17 +230,17 @@
         }
 
         .timeline-item:nth-child(1) { animation-delay: 0.5s; }
-        .timeline-item:nth-child(2) { animation-delay: 10.5s; }
-        .timeline-item:nth-child(3) { animation-delay: 20.5s; }
-        .timeline-item:nth-child(4) { animation-delay: 30.5s; }
-        .timeline-item:nth-child(5) { animation-delay: 40.5s; }
-        .timeline-item:nth-child(6) { animation-delay: 50.5s; }
-        .timeline-item:nth-child(7) { animation-delay: 60.5s; }
-        .timeline-item:nth-child(8) { animation-delay: 70.5s; }
-        .timeline-item:nth-child(9) { animation-delay: 80.5s; }
-        .timeline-item:nth-child(10) { animation-delay: 90.5s; }
-        .timeline-item:nth-child(11) { animation-delay: 100.5s; }
-        .timeline-item:nth-child(12) { animation-delay: 110.5s; }
+        .timeline-item:nth-child(2) { animation-delay: 9.5s; }
+        .timeline-item:nth-child(3) { animation-delay: 18.5s; }
+        .timeline-item:nth-child(4) { animation-delay: 27.5s; }
+        .timeline-item:nth-child(5) { animation-delay: 36.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 45.5s; }
+        .timeline-item:nth-child(7) { animation-delay: 54.5s; }
+        .timeline-item:nth-child(8) { animation-delay: 63.5s; }
+        .timeline-item:nth-child(9) { animation-delay: 72.5s; }
+        .timeline-item:nth-child(10) { animation-delay: 81.5s; }
+        .timeline-item:nth-child(11) { animation-delay: 90.5s; }
+        .timeline-item:nth-child(12) { animation-delay: 99.5s; }
 
         @keyframes slideIn {
             from { 
@@ -250,6 +250,21 @@
             to { 
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes imageEntrance {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) rotate(-5deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05) rotate(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
             }
         }
 
@@ -280,21 +295,21 @@
             margin-bottom: 20px;
             opacity: 0;
             transform: scale(0.8) rotate(-5deg);
-            animation: imageEntrance 1s ease forwards;
+            animation: imageEntrance 2s ease forwards;
         }
 
-        .timeline-item:nth-child(1) .card-image { animation-delay: 1s; }
-        .timeline-item:nth-child(2) .card-image { animation-delay: 11s; }
-        .timeline-item:nth-child(3) .card-image { animation-delay: 21s; }
-        .timeline-item:nth-child(4) .card-image { animation-delay: 31s; }
-        .timeline-item:nth-child(5) .card-image { animation-delay: 41s; }
-        .timeline-item:nth-child(6) .card-image { animation-delay: 51s; }
-        .timeline-item:nth-child(7) .card-image { animation-delay: 61s; }
-        .timeline-item:nth-child(8) .card-image { animation-delay: 71s; }
-        .timeline-item:nth-child(9) .card-image { animation-delay: 81s; }
-        .timeline-item:nth-child(10) .card-image { animation-delay: 91s; }
-        .timeline-item:nth-child(11) .card-image { animation-delay: 101s; }
-        .timeline-item:nth-child(12) .card-image { animation-delay: 111s; }
+        .timeline-item:nth-child(1) .card-image { animation-delay: 1.5s; }
+        .timeline-item:nth-child(2) .card-image { animation-delay: 10.5s; }
+        .timeline-item:nth-child(3) .card-image { animation-delay: 19.5s; }
+        .timeline-item:nth-child(4) .card-image { animation-delay: 28.5s; }
+        .timeline-item:nth-child(5) .card-image { animation-delay: 37.5s; }
+        .timeline-item:nth-child(6) .card-image { animation-delay: 46.5s; }
+        .timeline-item:nth-child(7) .card-image { animation-delay: 55.5s; }
+        .timeline-item:nth-child(8) .card-image { animation-delay: 64.5s; }
+        .timeline-item:nth-child(9) .card-image { animation-delay: 73.5s; }
+        .timeline-item:nth-child(10) .card-image { animation-delay: 82.5s; }
+        .timeline-item:nth-child(11) .card-image { animation-delay: 91.5s; }
+        .timeline-item:nth-child(12) .card-image { animation-delay: 100.5s; }
 
         @keyframes imageEntrance {
             0% {
@@ -356,7 +371,7 @@
             margin-bottom: 200px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             opacity: 0;
-            animation: slideIn 1s ease forwards 115s;
+            animation: slideIn 1s ease forwards 108s;
         }
 
         .final-message h2 {
