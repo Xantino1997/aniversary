@@ -64,7 +64,7 @@
                 transform: translateY(0);
             }
             100% {
-                transform: translateY(calc(-100% + 100vh));
+                transform: translateY(calc(-100% + 100vh - 100px));
             }
         }
 
@@ -350,6 +350,7 @@
             padding: 50px;
             border-radius: 20px;
             margin-top: 80px;
+            margin-bottom: 100px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             opacity: 0;
             animation: slideIn 1s ease forwards 120s;
