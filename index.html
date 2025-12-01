@@ -394,18 +394,76 @@
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 32px; }
-            .intro-text { font-size: 24px; }
-            .timeline::before { left: 30px; }
+            h1 { 
+                font-size: 32px; 
+            }
+            
+            .intro-text { 
+                font-size: 24px; 
+                padding: 0 20px;
+            }
+            
+            .names {
+                font-size: 28px;
+            }
+            
+            .wedding-date {
+                font-size: 18px;
+                padding: 8px 20px;
+            }
+            
+            .timeline::before { 
+                left: 30px; 
+            }
+            
             .timeline-item:nth-child(odd) .content,
             .timeline-item:nth-child(even) .content {
                 margin-left: 80px;
                 margin-right: 0;
                 text-align: left;
+                padding: 25px;
             }
-            .heart { left: 30px; }
-            .year { font-size: 28px; }
-            .event { font-size: 18px; }
+            
+            .heart { 
+                left: 30px;
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+            }
+            
+            .year { 
+                font-size: 26px;
+            }
+            
+            .event { 
+                font-size: 18px;
+                line-height: 1.5;
+            }
+            
+            .card-image {
+                height: 220px;
+                margin-bottom: 18px;
+            }
+            
+            .final-message {
+                padding: 35px 25px;
+                margin-top: 60px;
+            }
+            
+            .final-message h2 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+            
+            .final-message p {
+                font-size: 18px;
+                line-height: 1.6;
+            }
+            
+            .container {
+                width: 95%;
+                padding: 30px 15px;
+            }
         }
     </style>
 </head>
