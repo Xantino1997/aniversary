@@ -223,11 +223,21 @@
             margin-bottom: 80px;
             position: relative;
             opacity: 0;
-        }
-
-        .timeline-item.visible {
             animation: slideIn 1.5s ease forwards;
         }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(2) { animation-delay: 10.5s; }
+        .timeline-item:nth-child(3) { animation-delay: 20.5s; }
+        .timeline-item:nth-child(4) { animation-delay: 30.5s; }
+        .timeline-item:nth-child(5) { animation-delay: 40.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 50.5s; }
+        .timeline-item:nth-child(7) { animation-delay: 60.5s; }
+        .timeline-item:nth-child(8) { animation-delay: 70.5s; }
+        .timeline-item:nth-child(9) { animation-delay: 80.5s; }
+        .timeline-item:nth-child(10) { animation-delay: 90.5s; }
+        .timeline-item:nth-child(11) { animation-delay: 100.5s; }
+        .timeline-item:nth-child(12) { animation-delay: 110.5s; }
 
         @keyframes slideIn {
             from { 
@@ -267,11 +277,21 @@
             margin-bottom: 20px;
             opacity: 0;
             transform: scale(0.8) rotate(-5deg);
-        }
-
-        .card-image.visible {
             animation: imageEntrance 1s ease forwards;
         }
+
+        .timeline-item:nth-child(1) .card-image { animation-delay: 1s; }
+        .timeline-item:nth-child(2) .card-image { animation-delay: 11s; }
+        .timeline-item:nth-child(3) .card-image { animation-delay: 21s; }
+        .timeline-item:nth-child(4) .card-image { animation-delay: 31s; }
+        .timeline-item:nth-child(5) .card-image { animation-delay: 41s; }
+        .timeline-item:nth-child(6) .card-image { animation-delay: 51s; }
+        .timeline-item:nth-child(7) .card-image { animation-delay: 61s; }
+        .timeline-item:nth-child(8) .card-image { animation-delay: 71s; }
+        .timeline-item:nth-child(9) .card-image { animation-delay: 81s; }
+        .timeline-item:nth-child(10) .card-image { animation-delay: 91s; }
+        .timeline-item:nth-child(11) .card-image { animation-delay: 101s; }
+        .timeline-item:nth-child(12) .card-image { animation-delay: 111s; }
 
         @keyframes imageEntrance {
             0% {
@@ -333,10 +353,7 @@
             margin-bottom: 100px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             opacity: 0;
-        }
-
-        .final-message.visible {
-            animation: slideIn 1s ease forwards;
+            animation: slideIn 1s ease forwards 120s;
         }
 
         .final-message h2 {
@@ -642,7 +659,7 @@
         <button class="control-btn" id="restartBtn" title="Reiniciar">🔄</button>
     </div>
 
-    <audio id="bgMusic" loop>
+    <audio id="bgMusic">
         <source src="assets/Odioso.mp3" type="audio/mpeg">
     </audio>
 
@@ -657,10 +674,8 @@
         const pauseBtn = document.getElementById('pauseBtn');
         const restartBtn = document.getElementById('restartBtn');
         const finalMessage = document.getElementById('finalMessage');
-        const timelineItems = document.querySelectorAll('.timeline-item');
 
-        let animationTimeout;
-        let isAnimating = false;
+        let firstPlayCompleted = false;
 
         // Crear corazones flotantes
         function createFloatingHeart() {
@@ -679,82 +694,40 @@
 
         setInterval(createFloatingHeart, 800);
 
-        function showElementsSequentially() {
-            isAnimating = true;
-            const delay = 10000; // 10 segundos entre cada elemento
-            
-            timelineItems.forEach((item, index) => {
-                setTimeout(() => {
-                    item.classList.add('visible');
-                    const img = item.querySelector('.card-image');
-                    if (img) {
-                        setTimeout(() => {
-                            img.classList.add('visible');
-                        }, 500);
-                    }
-                }, index * delay);
-            });
-
-            // Mostrar mensaje final después de todas las tarjetas
-            animationTimeout = setTimeout(() => {
-                finalMessage.classList.add('visible');
-                
-                // Después de 5 segundos del mensaje final, permitir scroll
-                setTimeout(() => {
-                    viewport.classList.add('scrollable');
-                    content.classList.remove('active');
-                    content.classList.add('scrollable');
-                    document.documentElement.classList.add('scrollable');
-                    isAnimating = false;
-                }, 5000);
-            }, timelineItems.length * delay);
-        }
-
-        function resetAnimation() {
-            // Limpiar timeouts
-            if (animationTimeout) {
-                clearTimeout(animationTimeout);
-            }
-
-            // Remover clases de visibilidad
-            timelineItems.forEach(item => {
-                item.classList.remove('visible');
-                const img = item.querySelector('.card-image');
-                if (img) {
-                    img.classList.remove('visible');
-                }
-            });
-            finalMessage.classList.remove('visible');
-
-            // Resetear viewport
-            viewport.classList.remove('scrollable');
-            content.classList.remove('scrollable');
-            document.documentElement.classList.remove('scrollable');
-            
-            // Scroll al inicio
-            viewport.scrollTop = 0;
-            window.scrollTo(0, 0);
-        }
-
         playButton.addEventListener('click', () => {
             playContainer.classList.add('hidden');
             viewport.classList.add('active');
-            controlButtons.classList.add('visible');
+            content.classList.add('active');
 
             document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
             
-            showElementsSequentially();
+            // Después de 120 segundos (cuando termina el scroll automático)
+            setTimeout(() => {
+                viewport.classList.add('scrollable');
+                content.classList.remove('active');
+                content.classList.add('scrollable');
+                document.documentElement.classList.add('scrollable');
+            }, 120000);
 
+            // Reproducir música
             bgMusic.volume = 0.5;
             bgMusic.play()
                 .then(() => {
                     console.log('Música reproduciéndose correctamente');
-                    pauseBtn.textContent = '⏸';
                 })
                 .catch(error => {
                     console.error('Error al reproducir la música:', error);
                 });
+        });
+
+        // Detectar cuando la música termina por primera vez
+        bgMusic.addEventListener('ended', () => {
+            if (!firstPlayCompleted) {
+                firstPlayCompleted = true;
+                controlButtons.classList.add('visible');
+                console.log('Primera reproducción completada. Botones activados.');
+            }
         });
 
         pauseBtn.addEventListener('click', () => {
@@ -768,16 +741,15 @@
         });
 
         restartBtn.addEventListener('click', () => {
-            // Pausar música
+            // Pausar y resetear música
             bgMusic.pause();
             bgMusic.currentTime = 0;
             pauseBtn.textContent = '▶';
-
-            // Resetear animación
-            resetAnimation();
+            firstPlayCompleted = false;
 
             // Ocultar viewport y controles
-            viewport.classList.remove('active');
+            viewport.classList.remove('active', 'scrollable');
+            content.classList.remove('active', 'scrollable');
             controlButtons.classList.remove('visible');
             
             // Mostrar pantalla de inicio
@@ -785,17 +757,12 @@
             
             // Resetear overflow
             document.documentElement.style.overflow = 'hidden';
+            document.documentElement.classList.remove('scrollable');
             document.body.style.overflow = 'hidden';
-        });
-
-        // Detectar cuando la música termina su segundo ciclo
-        let playCount = 0;
-        bgMusic.addEventListener('ended', () => {
-            playCount++;
-            if (playCount >= 2) {
-                bgMusic.pause();
-                pauseBtn.textContent = '▶';
-            }
+            
+            // Scroll al inicio
+            viewport.scrollTop = 0;
+            window.scrollTo(0, 0);
         });
     </script>
 </body>
