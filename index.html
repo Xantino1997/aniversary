@@ -69,8 +69,11 @@
             0% {
                 transform: translateY(0);
             }
+            85% {
+                transform: translateY(calc(-100% + 100vh + 200px));
+            }
             100% {
-                transform: translateY(calc(-100% + 100vh - 100px));
+                transform: translateY(calc(-100% + 100vh + 200px));
             }
         }
 
@@ -350,10 +353,10 @@
             padding: 50px;
             border-radius: 20px;
             margin-top: 80px;
-            margin-bottom: 100px;
+            margin-bottom: 200px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             opacity: 0;
-            animation: slideIn 1s ease forwards 120s;
+            animation: slideIn 1s ease forwards 115s;
         }
 
         .final-message h2 {
