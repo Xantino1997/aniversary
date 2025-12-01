@@ -18,11 +18,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
 
         html {
             overflow: hidden;
+        }
+
+        html.scrollable {
+            overflow-y: auto;
         }
 
         .viewport {
@@ -41,6 +44,9 @@
 
         .viewport.scrollable {
             overflow-y: auto;
+            position: relative;
+            height: auto;
+            min-height: 100vh;
         }
 
         .container {
@@ -66,11 +72,6 @@
             100% {
                 transform: translateY(calc(-100% + 100vh - 100px));
             }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .play-button-container {
@@ -222,22 +223,11 @@
             margin-bottom: 80px;
             position: relative;
             opacity: 0;
-            animation: slideIn 1.5s ease forwards;
         }
 
-        /* 2 minutos = 120 segundos / 12 fotos = 10 segundos por foto */
-        .timeline-item:nth-child(1) { animation-delay: 0.5s; }
-        .timeline-item:nth-child(2) { animation-delay: 10.5s; }
-        .timeline-item:nth-child(3) { animation-delay: 20.5s; }
-        .timeline-item:nth-child(4) { animation-delay: 30.5s; }
-        .timeline-item:nth-child(5) { animation-delay: 40.5s; }
-        .timeline-item:nth-child(6) { animation-delay: 50.5s; }
-        .timeline-item:nth-child(7) { animation-delay: 60.5s; }
-        .timeline-item:nth-child(8) { animation-delay: 70.5s; }
-        .timeline-item:nth-child(9) { animation-delay: 80.5s; }
-        .timeline-item:nth-child(10) { animation-delay: 90.5s; }
-        .timeline-item:nth-child(11) { animation-delay: 100.5s; }
-        .timeline-item:nth-child(12) { animation-delay: 110.5s; }
+        .timeline-item.visible {
+            animation: slideIn 1.5s ease forwards;
+        }
 
         @keyframes slideIn {
             from { 
@@ -277,21 +267,11 @@
             margin-bottom: 20px;
             opacity: 0;
             transform: scale(0.8) rotate(-5deg);
-            animation: imageEntrance 1s ease forwards;
         }
 
-        .timeline-item:nth-child(1) .card-image { animation-delay: 1s; }
-        .timeline-item:nth-child(2) .card-image { animation-delay: 11s; }
-        .timeline-item:nth-child(3) .card-image { animation-delay: 21s; }
-        .timeline-item:nth-child(4) .card-image { animation-delay: 31s; }
-        .timeline-item:nth-child(5) .card-image { animation-delay: 41s; }
-        .timeline-item:nth-child(6) .card-image { animation-delay: 51s; }
-        .timeline-item:nth-child(7) .card-image { animation-delay: 61s; }
-        .timeline-item:nth-child(8) .card-image { animation-delay: 71s; }
-        .timeline-item:nth-child(9) .card-image { animation-delay: 81s; }
-        .timeline-item:nth-child(10) .card-image { animation-delay: 91s; }
-        .timeline-item:nth-child(11) .card-image { animation-delay: 101s; }
-        .timeline-item:nth-child(12) .card-image { animation-delay: 111s; }
+        .card-image.visible {
+            animation: imageEntrance 1s ease forwards;
+        }
 
         @keyframes imageEntrance {
             0% {
@@ -353,7 +333,10 @@
             margin-bottom: 100px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             opacity: 0;
-            animation: slideIn 1s ease forwards 120s;
+        }
+
+        .final-message.visible {
+            animation: slideIn 1s ease forwards;
         }
 
         .final-message h2 {
@@ -400,6 +383,40 @@
                 transform: translateY(-100px) rotate(360deg);
                 opacity: 0;
             }
+        }
+
+        .control-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: none;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .control-buttons.visible {
+            display: flex;
+        }
+
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #764ba2;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 7px 25px rgba(0,0,0,0.4);
         }
 
         @media (max-width: 768px) {
@@ -472,6 +489,18 @@
             .container {
                 width: 95%;
                 padding: 30px 15px;
+            }
+
+            .control-buttons {
+                bottom: 15px;
+                right: 15px;
+                gap: 10px;
+            }
+
+            .control-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
             }
         }
     </style>
@@ -597,7 +626,7 @@
             </div>
         </div>
 
-        <div class="final-message">
+        <div class="final-message" id="finalMessage">
             <h2>Gracias por un año más de amor y felicidad</h2>
             <p>
                 Cada día a tu lado es un regalo 🎁<br><br>
@@ -608,11 +637,15 @@
         </div>
     </div>
 
+    <div class="control-buttons" id="controlButtons">
+        <button class="control-btn" id="pauseBtn" title="Pausar música">⏸</button>
+        <button class="control-btn" id="restartBtn" title="Reiniciar">🔄</button>
+    </div>
+
     <audio id="bgMusic" loop>
         <source src="assets/Odioso.mp3" type="audio/mpeg">
     </audio>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script>
         const playButton = document.getElementById('playButton');
         const playContainer = document.getElementById('playContainer');
@@ -620,6 +653,14 @@
         const content = document.getElementById('content');
         const heartsContainer = document.getElementById('heartsContainer');
         const bgMusic = document.getElementById('bgMusic');
+        const controlButtons = document.getElementById('controlButtons');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const restartBtn = document.getElementById('restartBtn');
+        const finalMessage = document.getElementById('finalMessage');
+        const timelineItems = document.querySelectorAll('.timeline-item');
+
+        let animationTimeout;
+        let isAnimating = false;
 
         // Crear corazones flotantes
         function createFloatingHeart() {
@@ -636,34 +677,125 @@
             }, 15000);
         }
 
-        // Crear corazones cada cierto tiempo
         setInterval(createFloatingHeart, 800);
+
+        function showElementsSequentially() {
+            isAnimating = true;
+            const delay = 10000; // 10 segundos entre cada elemento
+            
+            timelineItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('visible');
+                    const img = item.querySelector('.card-image');
+                    if (img) {
+                        setTimeout(() => {
+                            img.classList.add('visible');
+                        }, 500);
+                    }
+                }, index * delay);
+            });
+
+            // Mostrar mensaje final después de todas las tarjetas
+            animationTimeout = setTimeout(() => {
+                finalMessage.classList.add('visible');
+                
+                // Después de 5 segundos del mensaje final, permitir scroll
+                setTimeout(() => {
+                    viewport.classList.add('scrollable');
+                    content.classList.remove('active');
+                    content.classList.add('scrollable');
+                    document.documentElement.classList.add('scrollable');
+                    isAnimating = false;
+                }, 5000);
+            }, timelineItems.length * delay);
+        }
+
+        function resetAnimation() {
+            // Limpiar timeouts
+            if (animationTimeout) {
+                clearTimeout(animationTimeout);
+            }
+
+            // Remover clases de visibilidad
+            timelineItems.forEach(item => {
+                item.classList.remove('visible');
+                const img = item.querySelector('.card-image');
+                if (img) {
+                    img.classList.remove('visible');
+                }
+            });
+            finalMessage.classList.remove('visible');
+
+            // Resetear viewport
+            viewport.classList.remove('scrollable');
+            content.classList.remove('scrollable');
+            document.documentElement.classList.remove('scrollable');
+            
+            // Scroll al inicio
+            viewport.scrollTop = 0;
+            window.scrollTo(0, 0);
+        }
 
         playButton.addEventListener('click', () => {
             playContainer.classList.add('hidden');
             viewport.classList.add('active');
-            content.classList.add('active');
+            controlButtons.classList.add('visible');
 
-            // Ocultar scrollbar completamente
             document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
             
-            // Después de 120 segundos (cuando termina la animación), permitir scroll
-            setTimeout(() => {
-                viewport.classList.add('scrollable');
-                content.classList.add('scrollable');
-            }, 120000); // 120 segundos = 2 minutos
+            showElementsSequentially();
 
-            // Reproducir música de fondo
             bgMusic.volume = 0.5;
             bgMusic.play()
                 .then(() => {
                     console.log('Música reproduciéndose correctamente');
+                    pauseBtn.textContent = '⏸';
                 })
                 .catch(error => {
                     console.error('Error al reproducir la música:', error);
-                    alert('No se pudo reproducir la música. Verifica que el archivo assets/Odioso.mp3 existe.');
                 });
+        });
+
+        pauseBtn.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                pauseBtn.textContent = '⏸';
+            } else {
+                bgMusic.pause();
+                pauseBtn.textContent = '▶';
+            }
+        });
+
+        restartBtn.addEventListener('click', () => {
+            // Pausar música
+            bgMusic.pause();
+            bgMusic.currentTime = 0;
+            pauseBtn.textContent = '▶';
+
+            // Resetear animación
+            resetAnimation();
+
+            // Ocultar viewport y controles
+            viewport.classList.remove('active');
+            controlButtons.classList.remove('visible');
+            
+            // Mostrar pantalla de inicio
+            playContainer.classList.remove('hidden');
+            
+            // Resetear overflow
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Detectar cuando la música termina su segundo ciclo
+        let playCount = 0;
+        bgMusic.addEventListener('ended', () => {
+            playCount++;
+            if (playCount >= 2) {
+                bgMusic.pause();
+                pauseBtn.textContent = '▶';
+            }
         });
     </script>
 </body>
