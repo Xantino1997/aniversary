@@ -39,6 +39,10 @@
             display: block;
         }
 
+        .viewport.scrollable {
+            overflow-y: auto;
+        }
+
         .container {
             max-width: 900px;
             width: 90%;
@@ -49,6 +53,10 @@
 
         .container.active {
             animation: autoScroll 120s linear forwards;
+        }
+
+        .container.scrollable {
+            animation: none;
         }
 
         @keyframes autoScroll {
@@ -639,8 +647,11 @@
             document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
             
-            // NO usar window.scrollTo, usar solo animación CSS
-            // El contenido se mueve dentro del viewport sin scroll
+            // Después de 120 segundos (cuando termina la animación), permitir scroll
+            setTimeout(() => {
+                viewport.classList.add('scrollable');
+                content.classList.add('scrollable');
+            }, 120000); // 120 segundos = 2 minutos
 
             // Reproducir música de fondo
             bgMusic.volume = 0.5;
