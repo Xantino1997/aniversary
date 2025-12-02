@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestra Historia de Amor</title>
+    
+    <!-- Meta tags para compartir en redes sociales -->
+    <meta property="og:title" content="Nuestra Historia de Amor - Joaquín & Alicia">
+    <meta property="og:description" content="Un viaje a través de nuestra historia de amor desde 2014 hasta hoy">
+    <meta property="og:image" content="https://aniversary-eight.vercel.app/assets/INICIO%20BODA.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aniversary-eight.vercel.app/">
+    
+    <!-- Meta tags para Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nuestra Historia de Amor - Joaquín & Alicia">
+    <meta name="twitter:description" content="Un viaje a través de nuestra historia de amor desde 2014 hasta hoy">
+    <meta name="twitter:image" content="https://aniversary-eight.vercel.app/assets/INICIO%20BODA.jpg">
+    
     <style>
         * {
             margin: 0;
@@ -58,7 +72,7 @@
         }
 
         .container.active {
-            animation: autoScroll 150s linear forwards;
+            animation: autoScroll 141s linear forwards;
         }
 
         .container.scrollable {
@@ -230,17 +244,17 @@
         }
 
         .timeline-item:nth-child(1) { animation-delay: 0.2s; }
-        .timeline-item:nth-child(2) { animation-delay: 10s; }
-        .timeline-item:nth-child(3) { animation-delay: 20s; }
-        .timeline-item:nth-child(4) { animation-delay: 30s; }
-        .timeline-item:nth-child(5) { animation-delay: 40s; }
-        .timeline-item:nth-child(6) { animation-delay: 50s; }
-        .timeline-item:nth-child(7) { animation-delay: 60s; }
-        .timeline-item:nth-child(8) { animation-delay: 70s; }
-        .timeline-item:nth-child(9) { animation-delay: 80s; }
-        .timeline-item:nth-child(10) { animation-delay: 90s; }
-        .timeline-item:nth-child(11) { animation-delay: 100s; }
-        .timeline-item:nth-child(12) { animation-delay: 110s; }
+        .timeline-item:nth-child(2) { animation-delay: 9s; }
+        .timeline-item:nth-child(3) { animation-delay: 18s; }
+        .timeline-item:nth-child(4) { animation-delay: 27s; }
+        .timeline-item:nth-child(5) { animation-delay: 36s; }
+        .timeline-item:nth-child(6) { animation-delay: 45s; }
+        .timeline-item:nth-child(7) { animation-delay: 54s; }
+        .timeline-item:nth-child(8) { animation-delay: 63s; }
+        .timeline-item:nth-child(9) { animation-delay: 72s; }
+        .timeline-item:nth-child(10) { animation-delay: 81s; }
+        .timeline-item:nth-child(11) { animation-delay: 90s; }
+        .timeline-item:nth-child(12) { animation-delay: 99s; }
 
         @keyframes slideIn {
             from { 
@@ -299,17 +313,17 @@
         }
 
         .timeline-item:nth-child(1) .card-image { animation-delay: 0.7s; }
-        .timeline-item:nth-child(2) .card-image { animation-delay: 10.5s; }
-        .timeline-item:nth-child(3) .card-image { animation-delay: 20.5s; }
-        .timeline-item:nth-child(4) .card-image { animation-delay: 30.5s; }
-        .timeline-item:nth-child(5) .card-image { animation-delay: 40.5s; }
-        .timeline-item:nth-child(6) .card-image { animation-delay: 50.5s; }
-        .timeline-item:nth-child(7) .card-image { animation-delay: 60.5s; }
-        .timeline-item:nth-child(8) .card-image { animation-delay: 70.5s; }
-        .timeline-item:nth-child(9) .card-image { animation-delay: 80.5s; }
-        .timeline-item:nth-child(10) .card-image { animation-delay: 90.5s; }
-        .timeline-item:nth-child(11) .card-image { animation-delay: 100.5s; }
-        .timeline-item:nth-child(12) .card-image { animation-delay: 110.5s; }
+        .timeline-item:nth-child(2) .card-image { animation-delay: 9.5s; }
+        .timeline-item:nth-child(3) .card-image { animation-delay: 18.5s; }
+        .timeline-item:nth-child(4) .card-image { animation-delay: 27.5s; }
+        .timeline-item:nth-child(5) .card-image { animation-delay: 36.5s; }
+        .timeline-item:nth-child(6) .card-image { animation-delay: 45.5s; }
+        .timeline-item:nth-child(7) .card-image { animation-delay: 54.5s; }
+        .timeline-item:nth-child(8) .card-image { animation-delay: 63.5s; }
+        .timeline-item:nth-child(9) .card-image { animation-delay: 72.5s; }
+        .timeline-item:nth-child(10) .card-image { animation-delay: 81.5s; }
+        .timeline-item:nth-child(11) .card-image { animation-delay: 90.5s; }
+        .timeline-item:nth-child(12) .card-image { animation-delay: 99.5s; }
 
         .year {
             font-size: 36px;
@@ -357,7 +371,7 @@
             margin-bottom: 200px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             opacity: 0;
-            animation: slideIn 1s ease forwards 125s;
+            animation: slideIn 1s ease forwards 115s;
         }
 
         .final-message h2 {
@@ -710,13 +724,13 @@
             document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
             
-            // Después de 150 segundos (cuando termina el scroll automático)
+            // Después de 141 segundos (cuando termina el scroll automático)
             setTimeout(() => {
                 viewport.classList.add('scrollable');
                 content.classList.remove('active');
                 content.classList.add('scrollable');
                 document.documentElement.classList.add('scrollable');
-            }, 150000);
+            }, 141000);
 
             // Reproducir música
             bgMusic.volume = 0.5;
