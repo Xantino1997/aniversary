@@ -58,7 +58,7 @@
         }
 
         .container.active {
-            animation: autoScroll 120s linear forwards;
+            animation: autoScroll 150s linear forwards;
         }
 
         .container.scrollable {
@@ -229,18 +229,18 @@
             animation: slideIn 1.5s ease forwards;
         }
 
-        .timeline-item:nth-child(1) { animation-delay: 0.5s; }
-        .timeline-item:nth-child(2) { animation-delay: 9.5s; }
-        .timeline-item:nth-child(3) { animation-delay: 18.5s; }
-        .timeline-item:nth-child(4) { animation-delay: 27.5s; }
-        .timeline-item:nth-child(5) { animation-delay: 36.5s; }
-        .timeline-item:nth-child(6) { animation-delay: 45.5s; }
-        .timeline-item:nth-child(7) { animation-delay: 54.5s; }
-        .timeline-item:nth-child(8) { animation-delay: 63.5s; }
-        .timeline-item:nth-child(9) { animation-delay: 72.5s; }
-        .timeline-item:nth-child(10) { animation-delay: 81.5s; }
-        .timeline-item:nth-child(11) { animation-delay: 90.5s; }
-        .timeline-item:nth-child(12) { animation-delay: 99.5s; }
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 10s; }
+        .timeline-item:nth-child(3) { animation-delay: 20s; }
+        .timeline-item:nth-child(4) { animation-delay: 30s; }
+        .timeline-item:nth-child(5) { animation-delay: 40s; }
+        .timeline-item:nth-child(6) { animation-delay: 50s; }
+        .timeline-item:nth-child(7) { animation-delay: 60s; }
+        .timeline-item:nth-child(8) { animation-delay: 70s; }
+        .timeline-item:nth-child(9) { animation-delay: 80s; }
+        .timeline-item:nth-child(10) { animation-delay: 90s; }
+        .timeline-item:nth-child(11) { animation-delay: 100s; }
+        .timeline-item:nth-child(12) { animation-delay: 110s; }
 
         @keyframes slideIn {
             from { 
@@ -298,18 +298,18 @@
             animation: imageEntrance 2s ease forwards;
         }
 
-        .timeline-item:nth-child(1) .card-image { animation-delay: 1.9s; }
+        .timeline-item:nth-child(1) .card-image { animation-delay: 0.7s; }
         .timeline-item:nth-child(2) .card-image { animation-delay: 10.5s; }
-        .timeline-item:nth-child(3) .card-image { animation-delay: 19.5s; }
-        .timeline-item:nth-child(4) .card-image { animation-delay: 28.5s; }
-        .timeline-item:nth-child(5) .card-image { animation-delay: 37.5s; }
-        .timeline-item:nth-child(6) .card-image { animation-delay: 46.5s; }
-        .timeline-item:nth-child(7) .card-image { animation-delay: 55.5s; }
-        .timeline-item:nth-child(8) .card-image { animation-delay: 64.5s; }
-        .timeline-item:nth-child(9) .card-image { animation-delay: 75.5s; }
-        .timeline-item:nth-child(10) .card-image { animation-delay: 85.5s; }
-        .timeline-item:nth-child(11) .card-image { animation-delay: 93.5s; }
-        .timeline-item:nth-child(12) .card-image { animation-delay: 100.5s; }
+        .timeline-item:nth-child(3) .card-image { animation-delay: 20.5s; }
+        .timeline-item:nth-child(4) .card-image { animation-delay: 30.5s; }
+        .timeline-item:nth-child(5) .card-image { animation-delay: 40.5s; }
+        .timeline-item:nth-child(6) .card-image { animation-delay: 50.5s; }
+        .timeline-item:nth-child(7) .card-image { animation-delay: 60.5s; }
+        .timeline-item:nth-child(8) .card-image { animation-delay: 70.5s; }
+        .timeline-item:nth-child(9) .card-image { animation-delay: 80.5s; }
+        .timeline-item:nth-child(10) .card-image { animation-delay: 90.5s; }
+        .timeline-item:nth-child(11) .card-image { animation-delay: 100.5s; }
+        .timeline-item:nth-child(12) .card-image { animation-delay: 110.5s; }
 
         .year {
             font-size: 36px;
@@ -357,7 +357,7 @@
             margin-bottom: 200px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             opacity: 0;
-            animation: slideIn 1s ease forwards 102s;
+            animation: slideIn 1s ease forwards 125s;
         }
 
         .final-message h2 {
@@ -710,13 +710,13 @@
             document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
             
-            // Después de 120 segundos (cuando termina el scroll automático)
+            // Después de 150 segundos (cuando termina el scroll automático)
             setTimeout(() => {
                 viewport.classList.add('scrollable');
                 content.classList.remove('active');
                 content.classList.add('scrollable');
                 document.documentElement.classList.add('scrollable');
-            }, 120000);
+            }, 150000);
 
             // Reproducir música
             bgMusic.volume = 0.5;
@@ -753,5 +753,3 @@
     </script>
 </body>
 </html>
-
-
