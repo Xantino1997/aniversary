@@ -69,7 +69,7 @@
             0% {
                 transform: translateY(0);
             }
-            90% {
+            85% {
                 transform: translateY(calc(-100% + 100vh + 200px));
             }
             100% {
@@ -357,7 +357,7 @@
             margin-bottom: 200px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             opacity: 0;
-            animation: slideIn 1s ease forwards 108s;
+            animation: slideIn 1s ease forwards 102s;
         }
 
         .final-message h2 {
@@ -731,10 +731,10 @@
 
         // Detectar cuando la música termina
         bgMusic.addEventListener('ended', () => {
-            // Esperar 5 segundos mostrando el mensaje final, luego volver al inicio
+            // Esperar 8 segundos mostrando el mensaje final, luego volver al inicio
             setTimeout(() => {
                 location.reload(); // Recarga la página para volver al inicio
-            }, 5000);
+            }, 8000);
         });
 
         pauseBtn.addEventListener('click', () => {
