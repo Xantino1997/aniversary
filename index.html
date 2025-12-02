@@ -749,6 +749,11 @@
                 firstPlayCompleted = true;
                 controlButtons.classList.add('visible');
                 console.log('Primera reproducción completada. Botones activados.');
+            } else {
+                // Si ya se completó una vez y termina de nuevo, reiniciar automáticamente
+                setTimeout(() => {
+                    resetToStart();
+                }, 2000); // Espera 2 segundos antes de reiniciar
             }
         });
 
@@ -763,6 +768,10 @@
         });
 
         restartBtn.addEventListener('click', () => {
+            resetToStart();
+        });
+
+        function resetToStart() {
             // Pausar y resetear música
             bgMusic.pause();
             bgMusic.currentTime = 0;
@@ -785,7 +794,7 @@
             // Scroll al inicio
             viewport.scrollTop = 0;
             window.scrollTo(0, 0);
-        });
+        }
     </script>
 </body>
 </html>
