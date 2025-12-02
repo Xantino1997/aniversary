@@ -311,20 +311,6 @@
         .timeline-item:nth-child(11) .card-image { animation-delay: 91.5s; }
         .timeline-item:nth-child(12) .card-image { animation-delay: 100.5s; }
 
-        @keyframes imageEntrance {
-            0% {
-                opacity: 0;
-                transform: scale(0.8) rotate(-5deg);
-            }
-            60% {
-                transform: scale(1.05) rotate(2deg);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
-        }
-
         .year {
             font-size: 36px;
             font-weight: bold;
@@ -666,7 +652,7 @@
             <p>
                 Cada día a tu lado es un regalo 🎁<br><br>
                 Te amo hoy y siempre 💕<br><br>
-               “El que halla esposa halla algo excelente; ha obtenido favor de Jehová.” — Proverbios 18:22
+               "El que encuentra una buena esposa encuentra un tesoro y recibe la aprobación de Jehová." — Proverbios 18:22
             </p>
         </div>
         </div>
@@ -743,18 +729,12 @@
                 });
         });
 
-        // Detectar cuando la música termina por primera vez
+        // Detectar cuando la música termina
         bgMusic.addEventListener('ended', () => {
-            if (!firstPlayCompleted) {
-                firstPlayCompleted = true;
-                controlButtons.classList.add('visible');
-                console.log('Primera reproducción completada. Botones activados.');
-            } else {
-                // Si ya se completó una vez y termina de nuevo, reiniciar automáticamente
-                setTimeout(() => {
-                    resetToStart();
-                }, 2000); // Espera 2 segundos antes de reiniciar
-            }
+            // Esperar 5 segundos mostrando el mensaje final, luego volver al inicio
+            setTimeout(() => {
+                location.reload(); // Recarga la página para volver al inicio
+            }, 5000);
         });
 
         pauseBtn.addEventListener('click', () => {
@@ -768,33 +748,8 @@
         });
 
         restartBtn.addEventListener('click', () => {
-            resetToStart();
+            location.reload(); // Recarga la página
         });
-
-        function resetToStart() {
-            // Pausar y resetear música
-            bgMusic.pause();
-            bgMusic.currentTime = 0;
-            pauseBtn.textContent = '▶';
-            firstPlayCompleted = false;
-
-            // Ocultar viewport y controles
-            viewport.classList.remove('active', 'scrollable');
-            content.classList.remove('active', 'scrollable');
-            controlButtons.classList.remove('visible');
-            
-            // Mostrar pantalla de inicio
-            playContainer.classList.remove('hidden');
-            
-            // Resetear overflow
-            document.documentElement.style.overflow = 'hidden';
-            document.documentElement.classList.remove('scrollable');
-            document.body.style.overflow = 'hidden';
-            
-            // Scroll al inicio
-            viewport.scrollTop = 0;
-            window.scrollTo(0, 0);
-        }
     </script>
 </body>
 </html>
